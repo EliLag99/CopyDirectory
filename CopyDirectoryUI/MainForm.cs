@@ -45,7 +45,7 @@ namespace CopyDirectoryUI
 
         private void COPY_BTN_Click(object sender, EventArgs e)
         {
-            m_copier.m_AbortCopying = false;
+            m_copier.F_abortCopying = false;
 
             if (m_copierThread != null && m_copierThread.IsAlive)
             {
@@ -87,18 +87,19 @@ namespace CopyDirectoryUI
             {
                 if (m_copierThread != null && m_copierThread.IsAlive)
                 {
-                    content = "Copying from: " + m_copier.m_currSourceDir + Environment.NewLine;
-                    content += "Copying to: " + m_copier.m_currDestinDir + Environment.NewLine;
-                    content += "File: " + m_copier.m_currFile + Environment.NewLine;
+                    content = "Copying from: " + m_copier.M_currSourceDir + Environment.NewLine;
+                    content += "Copying to: " + m_copier.M_currDestinDir + Environment.NewLine + Environment.NewLine;
+                    content += "Element " + m_copier.M_elementsCopied + " of " + m_copier.M_elementsCount + Environment.NewLine;
+                    content += "File: " + m_copier.M_currFile + Environment.NewLine;
                     f_print = true;
                 }
                 else if(f_print)
                 {
                     Invoke(new Action(() => { PROG_COPY.Hide(); }));
-                    content = "Copied " + m_copier.m_elementsCopied + " of " + m_copier.m_elementsCount + " elements";
+                    content = "Copied " + m_copier.M_elementsCopied + " of " + m_copier.M_elementsCount + " elements";
                     content += Environment.NewLine;
-                    content += "Source: " + m_copier.m_source + Environment.NewLine;
-                    content += "Destination: " + m_copier.m_dest;
+                    content += "Source: " + m_copier.M_source + Environment.NewLine;
+                    content += "Destination: " + m_copier.M_dest;
                     content += Environment.NewLine + Environment.NewLine;
                     content += "Press button to copy contents";
                     f_print = false;
@@ -106,28 +107,14 @@ namespace CopyDirectoryUI
 
                 try
                 {
-                    if (!InvokeRequired)
+                    if (f_newDir)
                     {
-                        if (f_newDir)
-                        {
-                            PROG_COPY.Show();
-                            PROG_COPY.Maximum = Directory.GetFiles(m_copier.m_source, "*.*", SearchOption.AllDirectories).Count();
-                            f_newDir = false;
-                        }
-                        textBox2.Text = content;
-                        PROG_COPY.Value = m_copier.m_elementsCopied;
+                        Invoke(new Action(() => { PROG_COPY.Show(); }));
+                        Invoke(new Action(() => { PROG_COPY.Maximum = Directory.GetFiles(m_copier.M_source, "*.*", SearchOption.AllDirectories).Count(); }));
+                        f_newDir = false;
                     }
-                    else
-                    {
-                        if (f_newDir)
-                        {
-                            Invoke(new Action(() => { PROG_COPY.Show(); }));
-                            Invoke(new Action(() => { PROG_COPY.Maximum = Directory.GetFiles(m_copier.m_source, "*.*", SearchOption.AllDirectories).Count(); }));
-                            f_newDir = false;
-                        }
-                        Invoke(new Action(() => { textBox2.Text = content; }));
-                        Invoke(new Action(() => { PROG_COPY.Value = m_copier.m_elementsCopied; }));
-                    }
+                    Invoke(new Action(() => { textBox2.Text = content; }));
+                    Invoke(new Action(() => { PROG_COPY.Value = m_copier.M_elementsCopied; }));
                 }
                 catch (ObjectDisposedException)
                 {
@@ -138,7 +125,7 @@ namespace CopyDirectoryUI
 
         private void BTN_STOP_Click(object sender, EventArgs e)
         {
-            m_copier.m_AbortCopying = true;
+            m_copier.F_abortCopying = true;
         }
     }
 }
