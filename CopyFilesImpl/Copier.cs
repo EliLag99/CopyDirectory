@@ -41,6 +41,7 @@ namespace CopyFilesImpl
         {
             m_currSourceDir = source.FullName;
             m_currDestinDir = destin.FullName;
+            if (m_currSourceDir == m_currDestinDir) return;
             foreach (DirectoryInfo dir in source.GetDirectories())
             {
                 if (m_AbortCopying) return;
@@ -50,7 +51,7 @@ namespace CopyFilesImpl
             {
                 if (m_AbortCopying) return;
                 m_currFile = file.Name;
-                file.CopyTo(Path.Combine(destin.FullName, file.Name));
+                file.CopyTo(Path.Combine(destin.FullName, file.Name), true);
                 m_elementsCopied++;
             }
         }

@@ -14,8 +14,6 @@ using CopyFilesImpl;
 
 namespace CopyDirectoryUI
 {
-    //[FileIOPermissionAttribute(SecurityAction.PermitOnly, PathDiscovery = "C:\\")]
-
     public partial class MainForm : Form
     {
         private Copier m_copier;
