@@ -14,19 +14,33 @@ namespace CopyFilesImpl
         public string m_source { get; set; }
         public string m_dest { get; set; }
 
-        public Copier() { }
+        public string m_currSourceDir;
+        public string m_currDestinDir;
+        public string m_currFile;
+
+        public Copier() 
+        {
+            m_currSourceDir = "";
+            m_currDestinDir = "";
+            m_currFile = "";
+        }
 
         public void PerformCopying() 
         {
             CopyFilesRecursively(new DirectoryInfo(m_source), new DirectoryInfo(m_dest));
         }
 
-        private void CopyFilesRecursively(DirectoryInfo source, DirectoryInfo dest)
+        private void CopyFilesRecursively(DirectoryInfo source, DirectoryInfo destin)
         {
+            m_currSourceDir = source.FullName;
+            m_currDestinDir = destin.FullName;
             foreach (DirectoryInfo dir in source.GetDirectories())
-                CopyFilesRecursively(dir, dest.CreateSubdirectory(dir.Name));
+                CopyFilesRecursively(dir, destin.CreateSubdirectory(dir.Name));
             foreach (FileInfo file in source.GetFiles())
-                file.CopyTo(Path.Combine(dest.FullName, file.Name));
+            {
+                m_currFile = file.Name;
+                file.CopyTo(Path.Combine(destin.FullName, file.Name));
+            }
         }
     }
 }
