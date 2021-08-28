@@ -4,7 +4,6 @@
 #REQUIREMENTS
 Project requires .NET version 5
 
-#RUN
-1. Download Source Code
-2. Navigate to 
-3. Execute CopyDirectoryUI.exe
+#USER INTERFACE
+-If Overwrite Checkbox is ticked, files with the same name in the destination are overwritten, else the file is not copied
+-upon aborting copying, the file currently being copied will be transferred completely, to avoid file corruption
