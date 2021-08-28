@@ -16,10 +16,17 @@ namespace CopyDirectoryUI
 {
     public partial class MainForm : Form
     {
+        //Objects
         private Copier m_copier;
         private Thread m_copierThread;
         private Thread m_DisplayThread;
         private FolderBrowserDialog m_folderbrowser;
+
+        private string m_source;
+        private string m_destin;
+
+        //Flags
+        private bool f_newDir;
 
         public MainForm()
         {
@@ -27,29 +34,32 @@ namespace CopyDirectoryUI
             PROG_COPY.Hide();
             m_copier = new Copier();
 
-            m_copierThread = new Thread(this.m_copier.PerformCopying);
-
             m_DisplayThread = new Thread(this.DisplayInfo);
             m_DisplayThread.Start();
 
             m_folderbrowser = new System.Windows.Forms.FolderBrowserDialog();
             m_folderbrowser.UseDescriptionForTitle = true;
+
+            f_newDir = false;
         }
 
         private void COPY_BTN_Click(object sender, EventArgs e)
         {
             m_copier.m_AbortCopying = false;
 
-            if (m_copierThread.IsAlive)
+            if (m_copierThread != null && m_copierThread.IsAlive)
             {
                 string msg = "Please wait until the current operation is terminated.";
                 string cpt = "Action already in execution";
                 MessageBoxButtons btn = MessageBoxButtons.OK;
                 if (MessageBox.Show(msg, cpt, btn) == DialogResult.OK) return;
             }
-            m_copierThread = new Thread(this.m_copier.PerformCopying);
+
             if (SelectFolders())
+            {
+                m_copierThread = new Thread(() => this.m_copier.PerformCopying(m_source, m_destin, CBOX_OVERWRITE.Checked));
                 m_copierThread.Start();
+            }
             else
                 MessageBox.Show("No Files selected.", "Invalid selection", MessageBoxButtons.OK);
         }
@@ -58,14 +68,13 @@ namespace CopyDirectoryUI
         {
             m_folderbrowser.Description = "Select Source";
             if (m_folderbrowser.ShowDialog() != DialogResult.OK) return false;
-            m_copier.m_source = m_folderbrowser.SelectedPath;
+            m_source = m_folderbrowser.SelectedPath;
 
             m_folderbrowser.Description = "Select Destination";
             if (m_folderbrowser.ShowDialog() != DialogResult.OK) return false;
-            m_copier.m_dest = m_folderbrowser.SelectedPath;
+            m_destin = m_folderbrowser.SelectedPath;
 
-            PROG_COPY.Show();
-            PROG_COPY.Maximum = Directory.GetFiles(m_copier.m_source, "*.*", SearchOption.AllDirectories).Count();
+            f_newDir = true;
             return true;
         }
 
@@ -76,7 +85,7 @@ namespace CopyDirectoryUI
 
             while (true)
             {
-                if (m_copierThread.IsAlive)
+                if (m_copierThread != null && m_copierThread.IsAlive)
                 {
                     content = "Copying from: " + m_copier.m_currSourceDir + Environment.NewLine;
                     content += "Copying to: " + m_copier.m_currDestinDir + Environment.NewLine;
@@ -99,11 +108,23 @@ namespace CopyDirectoryUI
                 {
                     if (!InvokeRequired)
                     {
+                        if (f_newDir)
+                        {
+                            PROG_COPY.Show();
+                            PROG_COPY.Maximum = Directory.GetFiles(m_copier.m_source, "*.*", SearchOption.AllDirectories).Count();
+                            f_newDir = false;
+                        }
                         textBox2.Text = content;
                         PROG_COPY.Value = m_copier.m_elementsCopied;
                     }
                     else
                     {
+                        if (f_newDir)
+                        {
+                            Invoke(new Action(() => { PROG_COPY.Show(); }));
+                            Invoke(new Action(() => { PROG_COPY.Maximum = Directory.GetFiles(m_copier.m_source, "*.*", SearchOption.AllDirectories).Count(); }));
+                            f_newDir = false;
+                        }
                         Invoke(new Action(() => { textBox2.Text = content; }));
                         Invoke(new Action(() => { PROG_COPY.Value = m_copier.m_elementsCopied; }));
                     }
