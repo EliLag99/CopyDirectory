@@ -90,7 +90,8 @@ namespace CopyDirectoryUI
                     content = "Copying from: " + m_copier.M_currSourceDir + Environment.NewLine;
                     content += "Copying to: " + m_copier.M_currDestinDir + Environment.NewLine + Environment.NewLine;
                     content += "Element " + m_copier.M_elementsCopied + " of " + m_copier.M_elementsCount + Environment.NewLine;
-                    content += "File: " + m_copier.M_currFile + Environment.NewLine;
+                    content += "File: " + m_copier.M_currFile;
+                    content += m_copier.F_abortCopying ? Environment.NewLine + "Aborting, copying last element to avoid file corruption" : "";
                     f_print = true;
                 }
                 else if(f_print)

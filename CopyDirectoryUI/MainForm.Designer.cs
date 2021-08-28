@@ -48,7 +48,7 @@ namespace CopyDirectoryUI
             this.BTN_COPY.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.BTN_COPY.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.BTN_COPY.Font = new System.Drawing.Font("Segoe UI", 15F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
-            this.BTN_COPY.Location = new System.Drawing.Point(0, 215);
+            this.BTN_COPY.Location = new System.Drawing.Point(0, 144);
             this.BTN_COPY.MinimumSize = new System.Drawing.Size(20, 20);
             this.BTN_COPY.Name = "BTN_COPY";
             this.BTN_COPY.Size = new System.Drawing.Size(800, 59);
@@ -62,7 +62,7 @@ namespace CopyDirectoryUI
             this.BTN_STOP.AutoSize = true;
             this.BTN_STOP.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.BTN_STOP.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.BTN_STOP.Location = new System.Drawing.Point(0, 274);
+            this.BTN_STOP.Location = new System.Drawing.Point(0, 203);
             this.BTN_STOP.Name = "BTN_STOP";
             this.BTN_STOP.Size = new System.Drawing.Size(800, 36);
             this.BTN_STOP.TabIndex = 5;
@@ -84,17 +84,17 @@ namespace CopyDirectoryUI
             // textBox2
             // 
             this.textBox2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.textBox2.Location = new System.Drawing.Point(0, 339);
+            this.textBox2.Location = new System.Drawing.Point(0, 268);
             this.textBox2.Multiline = true;
             this.textBox2.Name = "textBox2";
             this.textBox2.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox2.Size = new System.Drawing.Size(800, 111);
+            this.textBox2.Size = new System.Drawing.Size(800, 182);
             this.textBox2.TabIndex = 4;
             // 
             // PROG_COPY
             // 
             this.PROG_COPY.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.PROG_COPY.Location = new System.Drawing.Point(0, 310);
+            this.PROG_COPY.Location = new System.Drawing.Point(0, 239);
             this.PROG_COPY.Name = "PROG_COPY";
             this.PROG_COPY.Size = new System.Drawing.Size(800, 29);
             this.PROG_COPY.TabIndex = 6;
@@ -103,7 +103,7 @@ namespace CopyDirectoryUI
             // 
             this.CBOX_OVERWRITE.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.CBOX_OVERWRITE.AutoSize = true;
-            this.CBOX_OVERWRITE.Location = new System.Drawing.Point(672, 185);
+            this.CBOX_OVERWRITE.Location = new System.Drawing.Point(672, 107);
             this.CBOX_OVERWRITE.Name = "CBOX_OVERWRITE";
             this.CBOX_OVERWRITE.Size = new System.Drawing.Size(128, 24);
             this.CBOX_OVERWRITE.TabIndex = 7;
