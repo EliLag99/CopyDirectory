@@ -11,22 +11,49 @@ namespace CopyFilesImpl
     //Class which stores source and dest paths, copies from source to dest
     public class Copier
     {
-        public string m_source { get; set; }
-        public string m_dest { get; set; }
+        public bool m_AbortCopying;
 
-        public Copier() { }
+        public int m_elementsCopied;
+        public int m_elementsCount;
+
+        public string m_source;
+        public string m_dest;
+
+        public string m_currSourceDir;
+        public string m_currDestinDir;
+        public string m_currFile;
+
+        public Copier() 
+        {
+            m_currSourceDir = "";
+            m_currDestinDir = "";
+            m_currFile = "";
+        }
 
         public void PerformCopying() 
         {
+            m_elementsCopied = 0;
+            m_elementsCount = Directory.GetFiles(m_source, "*.*", SearchOption.AllDirectories).Count();
             CopyFilesRecursively(new DirectoryInfo(m_source), new DirectoryInfo(m_dest));
         }
 
-        private void CopyFilesRecursively(DirectoryInfo source, DirectoryInfo dest)
+        private void CopyFilesRecursively(DirectoryInfo source, DirectoryInfo destin)
         {
+            m_currSourceDir = source.FullName;
+            m_currDestinDir = destin.FullName;
+            if (m_currSourceDir == m_currDestinDir) return;
             foreach (DirectoryInfo dir in source.GetDirectories())
-                CopyFilesRecursively(dir, dest.CreateSubdirectory(dir.Name));
+            {
+                if (m_AbortCopying) return;
+                CopyFilesRecursively(dir, destin.CreateSubdirectory(dir.Name));
+            }
             foreach (FileInfo file in source.GetFiles())
-                file.CopyTo(Path.Combine(dest.FullName, file.Name));
+            {
+                if (m_AbortCopying) return;
+                m_currFile = file.Name;
+                file.CopyTo(Path.Combine(destin.FullName, file.Name), true);
+                m_elementsCopied++;
+            }
         }
     }
 }

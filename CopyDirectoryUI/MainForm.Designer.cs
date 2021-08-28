@@ -31,48 +31,80 @@ namespace CopyDirectoryUI
         /// </summary>
         private void InitializeComponent()
         {
-            this.COPY_BTN = new System.Windows.Forms.Button();
-            this.lblCopyBtn = new System.Windows.Forms.Label();
+            this.BTN_COPY = new System.Windows.Forms.Button();
+            this.BTN_STOP = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.PROG_COPY = new System.Windows.Forms.ProgressBar();
             this.SuspendLayout();
             // 
-            // COPY_BTN
+            // BTN_COPY
             // 
-            this.COPY_BTN.Location = new System.Drawing.Point(325, 138);
-            this.COPY_BTN.Name = "COPY_BTN";
-            this.COPY_BTN.Size = new System.Drawing.Size(157, 63);
-            this.COPY_BTN.TabIndex = 0;
-            this.COPY_BTN.Text = "Copy Files";
-            this.COPY_BTN.UseVisualStyleBackColor = true;
-            this.COPY_BTN.Click += new System.EventHandler(this.COPY_BTN_Click);
+            this.BTN_COPY.AutoSize = true;
+            this.BTN_COPY.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.BTN_COPY.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.BTN_COPY.Font = new System.Drawing.Font("Segoe UI", 15F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
+            this.BTN_COPY.Location = new System.Drawing.Point(0, 391);
+            this.BTN_COPY.MinimumSize = new System.Drawing.Size(20, 20);
+            this.BTN_COPY.Name = "BTN_COPY";
+            this.BTN_COPY.Size = new System.Drawing.Size(800, 59);
+            this.BTN_COPY.TabIndex = 0;
+            this.BTN_COPY.Text = "Copy Files";
+            this.BTN_COPY.UseVisualStyleBackColor = false;
+            this.BTN_COPY.Click += new System.EventHandler(this.COPY_BTN_Click);
             // 
-            // lblCopyBtn
+            // BTN_STOP
             // 
-            this.lblCopyBtn.AutoSize = true;
-            this.lblCopyBtn.Location = new System.Drawing.Point(353, 204);
-            this.lblCopyBtn.Name = "lblCopyBtn";
-            this.lblCopyBtn.Size = new System.Drawing.Size(82, 20);
-            this.lblCopyBtn.TabIndex = 1;
-            this.lblCopyBtn.Text = "lblCopyBtn";
+            this.BTN_STOP.AutoSize = true;
+            this.BTN_STOP.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.BTN_STOP.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.BTN_STOP.Location = new System.Drawing.Point(0, 355);
+            this.BTN_STOP.Name = "BTN_STOP";
+            this.BTN_STOP.Size = new System.Drawing.Size(800, 36);
+            this.BTN_STOP.TabIndex = 5;
+            this.BTN_STOP.Text = "Stop Copying";
+            this.BTN_STOP.UseVisualStyleBackColor = false;
+            this.BTN_STOP.Click += new System.EventHandler(this.BTN_STOP_Click);
             // 
             // textBox1
             // 
+            this.textBox1.Dock = System.Windows.Forms.DockStyle.Top;
             this.textBox1.Font = new System.Drawing.Font("Arial Rounded MT Bold", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.textBox1.Location = new System.Drawing.Point(1, 39);
+            this.textBox1.Location = new System.Drawing.Point(0, 0);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(800, 46);
             this.textBox1.TabIndex = 3;
             this.textBox1.Text = "Click the button below to copy files and folders";
             this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
+            // textBox2
+            // 
+            this.textBox2.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.textBox2.Location = new System.Drawing.Point(0, 215);
+            this.textBox2.Multiline = true;
+            this.textBox2.Name = "textBox2";
+            this.textBox2.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBox2.Size = new System.Drawing.Size(800, 111);
+            this.textBox2.TabIndex = 4;
+            // 
+            // PROG_COPY
+            // 
+            this.PROG_COPY.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.PROG_COPY.Location = new System.Drawing.Point(0, 326);
+            this.PROG_COPY.Name = "PROG_COPY";
+            this.PROG_COPY.Size = new System.Drawing.Size(800, 29);
+            this.PROG_COPY.TabIndex = 6;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.textBox2);
             this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.lblCopyBtn);
-            this.Controls.Add(this.COPY_BTN);
+            this.Controls.Add(this.PROG_COPY);
+            this.Controls.Add(this.BTN_STOP);
+            this.Controls.Add(this.BTN_COPY);
             this.Name = "MainForm";
             this.Text = "MainForm";
             this.ResumeLayout(false);
@@ -82,9 +114,11 @@ namespace CopyDirectoryUI
 
         #endregion
 
-        private System.Windows.Forms.Button COPY_BTN;
-        private System.Windows.Forms.Label lblCopyBtn;
+        private System.Windows.Forms.Button BTN_COPY;
         private TextBox textBox1;
+        private TextBox textBox2;
+        private Button BTN_STOP;
+        private ProgressBar PROG_COPY;
     }
 }
 
